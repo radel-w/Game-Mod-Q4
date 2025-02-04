@@ -446,7 +446,15 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 	switch ( parms.stage ) {
 		case STAGE_INIT:
 			nextAttackTime = gameLocal.time + (fireRate * owner->PowerUpModifier ( PMOD_FIRERATE ));		
-			Attack(false, 3, 10, 0, 1.0f);// was Attack ( false, 1, spread, 0, 1.0f );
+			//Attack(false, 3, 10, 0, 1.0f);// was Attack ( false, 1, spread, 0, 1.0f );
+			//radel
+			if ( wsfl.zoom ) { //the zoom is not a visual change, simply allowing the player to hold mouse2 and shoot something different
+				Attack(true, 5, 30, 0, 1.0f);
+			}
+			else {
+				Attack(false, 3, 15, 0, 1.0f);
+			}
+			//add
 			PlayAnim ( ANIMCHANNEL_LEGS, "fire", parms.blendFrames );	
 			return SRESULT_STAGE ( STAGE_WAIT );
 	
