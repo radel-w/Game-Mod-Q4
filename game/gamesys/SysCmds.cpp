@@ -2941,6 +2941,20 @@ void Cmd_BuyItem_f( const idCmdArgs& args ) {
 }
 // RITUAL END
 
+//radel
+void Cmd_WhereAmI_f(const idCmdArgs& args) {
+	idPlayer* player = gameLocal.GetLocalPlayer();
+	if (!player) {
+		return;
+	}
+	gameLocal.Printf("I am at: (%f, %f, %f)\n", 
+		player->firstPersonViewOrigin.x, 
+		player->firstPersonViewOrigin.y, 
+		player->firstPersonViewOrigin.z);
+}
+
+//add
+
 void Cmd_PlayerEmote_f( const idCmdArgs& args ) {
 	if( gameLocal.GetLocalPlayer() == NULL ) {
 		gameLocal.Warning( "Cmd_Emote_f() - local player is NULL" );
@@ -3232,6 +3246,10 @@ void idGameLocal::InitConsoleCommands( void ) {
 	cmdSystem->AddCommand( "buyMenu",				Cmd_ToggleBuyMenu_f,		CMD_FL_GAME,				"Toggle buy menu (if in a buy zone and the game type supports it)" );
 	cmdSystem->AddCommand( "buy",					Cmd_BuyItem_f,				CMD_FL_GAME,				"Buy an item (if in a buy zone and the game type supports it)" );
 // RITUAL END
+
+// radel
+	cmdSystem->AddCommand("whereAmI", Cmd_WhereAmI_f, CMD_FL_GAME, "where the player is");
+//add
 
 }
 
