@@ -2944,13 +2944,26 @@ void Cmd_BuyItem_f( const idCmdArgs& args ) {
 //radel
 void Cmd_WhereAmI_f(const idCmdArgs& args) {
 	idPlayer* player = gameLocal.GetLocalPlayer();
-	if (!player) {
-		return;
-	}
+	if (!player)return;
 	gameLocal.Printf("I am at: (%f, %f, %f)\n", 
 		player->firstPersonViewOrigin.x, 
 		player->firstPersonViewOrigin.y, 
 		player->firstPersonViewOrigin.z);
+}
+
+void Cmd_howManyMonsters_f(const idCmdArgs & args) {
+	const char* name;
+	int monsterCount = 0;
+	int i;
+	for (i = 0; i < MAX_GENTITIES; i++) {
+		if (!gameLocal.entities[i])continue;
+		name = gameLocal.entities[i]->GetEntityDefName();
+		if (!name)continue;
+		if (strcmp("monster", name) == 0) {
+			monsterCount++;
+		}
+	}
+	gameLocal.Printf("there are %i monsters in the level\n", monsterCount);
 }
 
 //add
@@ -3249,6 +3262,7 @@ void idGameLocal::InitConsoleCommands( void ) {
 
 // radel
 	cmdSystem->AddCommand("whereAmI", Cmd_WhereAmI_f, CMD_FL_GAME, "where the player is");
+	cmdSystem->AddCommand("howManyMonsters", Cmd_howManyMonsters_f, CMD_FL_GAME, "number of monsters");
 //add
 
 }
