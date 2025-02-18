@@ -449,7 +449,7 @@ stateResult_t rvWeaponRocketLauncher::State_Fire ( const stateParms_t& parms ) {
 			//Attack(false, 3, 10, 0, 1.0f);// was Attack ( false, 1, spread, 0, 1.0f );
 			//radel
 			if (wsfl.zoom) { //the zoom is not a visual change, simply allowing the player to hold mouse2 and shoot something different
-				Attack(true, 5, 30, 0, 1.0f);
+				Attack(true, 2, 30, 0, 1.0f);
 			}
 			else {
 				Attack(false, 3, 15, 0, 1.0f);
