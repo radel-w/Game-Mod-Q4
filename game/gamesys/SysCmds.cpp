@@ -2959,9 +2959,10 @@ void Cmd_howManyMonsters_f(const idCmdArgs & args) {
 		if (!gameLocal.entities[i])continue;
 		name = gameLocal.entities[i]->GetEntityDefName();
 		if (!name)continue;
-		if (strcmp("monster", name) == 0) {
+		if (strstr("monster", name) == 0) {
 			monsterCount++;
 		}
+		gameLocal.Printf("Entity %i is named %s", monsterCount, name);
 	}
 	gameLocal.Printf("there are %i monsters in the level\n", monsterCount);
 }
