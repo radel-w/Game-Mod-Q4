@@ -2944,11 +2944,13 @@ void Cmd_BuyItem_f( const idCmdArgs& args ) {
 //radel
 void Cmd_WhereAmI_f(const idCmdArgs& args) {
 	idPlayer* player = gameLocal.GetLocalPlayer();
+	idVec3 origin;
 	if (!player)return;
+	origin = player->GetPhysics()->GetOrigin();
 	gameLocal.Printf("I am at: (%f, %f, %f)\n", 
-		player->firstPersonViewOrigin.x, 
-		player->firstPersonViewOrigin.y, 
-		player->firstPersonViewOrigin.z);
+		origin.x, 
+		origin.y, 
+		origin.z);
 }
 
 void Cmd_howManyMonsters_f(const idCmdArgs & args) {
@@ -2962,9 +2964,20 @@ void Cmd_howManyMonsters_f(const idCmdArgs & args) {
 		if (strstr("monster", name) == 0) {
 			monsterCount++;
 		}
-		gameLocal.Printf("Entity %i is named %s", monsterCount, name);
+		gameLocal.Printf("Entity %i is named %s", i, name);
 	}
 	gameLocal.Printf("there are %i monsters in the level\n", monsterCount);
+}
+
+void Cmd_spawnSteve_f(const idCmdArgs& args) {
+	idEntity* newEnt = NULL;
+	idDict	dict;
+	dict.Set("classname", "monster_grunt");
+	dict.Set("angle", "0");
+
+	dict.Set("origin", "10298 -7713 245");
+
+	gameLocal.SpawnEntityDef(dict, &newEnt);
 }
 
 //add
@@ -3264,6 +3277,8 @@ void idGameLocal::InitConsoleCommands( void ) {
 // radel
 	cmdSystem->AddCommand("whereAmI", Cmd_WhereAmI_f, CMD_FL_GAME, "where the player is");
 	cmdSystem->AddCommand("howManyMonsters", Cmd_howManyMonsters_f, CMD_FL_GAME, "number of monsters");
+	cmdSystem->AddCommand("spawnSteve", Cmd_spawnSteve_f, CMD_FL_GAME, "spawning a grunt");
+	
 //add
 
 }
